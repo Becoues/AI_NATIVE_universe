@@ -254,7 +254,7 @@ public class CombatGameQuickSetup : MonoBehaviour
         ChaseCamera chaseCamera = mainCam.GetComponent<ChaseCamera>();
         if (chaseCamera == null)
         {
-            chaseCamera = mainCam.AddComponent<ChaseCamera>();
+            chaseCamera = mainCam.gameObject.AddComponent<ChaseCamera>();
         }
 
         mainCam.fieldOfView = 70f;
