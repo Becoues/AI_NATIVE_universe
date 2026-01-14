@@ -1,0 +1,44 @@
+# Unity generated folders
+/Library/
+/Temp/
+/Obj/
+/Build/
+/Builds/
+/Logs/
+/UserSettings/
+/MemoryCaptures/
+/Recordings/
+
+# Visual Studio / Rider / VSCode
+/.vs/
+/.idea/
+/.vscode/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Crash/Profiler
+sysinfo.txt
+*.stacktrace
+
+# Addressables/Build cache
+/ServerData/
+/BuildCache/
+
+# MCP/bridge artifacts (if any)
+/bridges/
