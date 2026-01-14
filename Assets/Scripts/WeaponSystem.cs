@@ -33,6 +33,9 @@ public class WeaponSystem : MonoBehaviour
     [Header("Weapon Type")]
     [SerializeField] private WeaponType currentWeapon = WeaponType.MachineGun;
 
+    [Header("Debug")]
+    [SerializeField] private bool showDebugInfo = false;
+
     // 私有状态
     private float nextFireTime = 0f;
     private int currentAmmo;
@@ -83,13 +86,28 @@ public class WeaponSystem : MonoBehaviour
 
     private void HandleInput()
     {
-        // 射击输入（鼠标左键或空格键备选）
-        bool firePressed = Mouse.current != null && Mouse.current.leftButton.isPressed;
+        // 射击输入（多种方式）
+        bool firePressed = false;
 
-        // 如果鼠标不可用，使用键盘
-        if (!firePressed && Keyboard.current != null)
+        // 方式1: 鼠标左键
+        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
         {
-            firePressed = Keyboard.current.leftCtrlKey.isPressed;
+            firePressed = true;
+            if (showDebugInfo) Debug.Log("Fire: Mouse Left Button");
+        }
+
+        // 方式2: 左Ctrl键
+        if (!firePressed && Keyboard.current != null && Keyboard.current.leftCtrlKey.isPressed)
+        {
+            firePressed = true;
+            if (showDebugInfo) Debug.Log("Fire: Left Ctrl");
+        }
+
+        // 方式3: F键（备用射击键，避免与移动键冲突）
+        if (!firePressed && Keyboard.current != null && Keyboard.current.fKey.isPressed)
+        {
+            firePressed = true;
+            if (showDebugInfo) Debug.Log("Fire: F Key");
         }
 
         if (firePressed && !isReloading)
@@ -102,6 +120,7 @@ public class WeaponSystem : MonoBehaviour
         {
             if (!isReloading && currentAmmo < gunAmmoPerMagazine)
             {
+                if (showDebugInfo) Debug.Log("Reloading...");
                 StartReload();
             }
         }
@@ -128,6 +147,11 @@ public class WeaponSystem : MonoBehaviour
 
     private void Fire()
     {
+        if (showDebugInfo)
+        {
+            Debug.Log($"Firing! Ammo: {currentAmmo}/{gunAmmoPerMagazine}");
+        }
+
         switch (currentWeapon)
         {
             case WeaponType.MachineGun:
